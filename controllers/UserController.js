@@ -1,15 +1,15 @@
 const express = require('express');
 const models = require('../models')
 
-const getAllUsers = async (req,res) => {
+const index = async (req,res) => {
     const User = await models.User.findAll({})
     res.status(200).send({
         status : 200,
-        message : "Berhasil get data user",
+        message : "Geting all Users data",
         data : User
     });
 }
-const addUser = async (req, res) => {
+const create = async (req, res) => {
     const User = await models.User.create({
         firstName : req.body.firstName,
         lastName : req.body.lastName,
@@ -19,20 +19,20 @@ const addUser = async (req, res) => {
     })
     res.status(200).send({
         status : 200,
-        message : "Berhasil tambah data user",
+        message : "Add User data succeeded",
         data : User
     });
 }
-const showUser = async (req, res) => {
+const show = async (req, res) => {
     const user_id = req.params.user_id
     const User = await models.User.findByPk(user_id)
     res.status(200).send({
         status : 200,
-        message : `Get user with id ${user_id}`,
+        message : `Getting Users data with id ${user_id}`,
         data : User
     });
 }
-const updateUser = async (req, res) => {
+const update = async (req, res) => {
     const user_id = req.params.user_id
     const User = await models.User.update({
         firstName : req.body.firstName,
@@ -47,7 +47,7 @@ const updateUser = async (req, res) => {
     })
     res.status(200).send({
         status : 200,
-        message : `updating data with id ${user_id}`,
+        message : `Update Users data with id ${user_id} succeeded`,
         data: User[1]
     })
 }
@@ -60,7 +60,8 @@ const destroy = async (req, res) => {
     })
     res.status(200).send({
         status : 200,
-        message : `User dengan id ${user_id} berhasil dihapus`
+        message : `Delete User data with id ${user_id} succeeded`
     });
 }
-module.exports = {getAllUsers, addUser, showUser, updateUser, destroy}
+
+module.exports = {index, create, show, update ,destroy}
