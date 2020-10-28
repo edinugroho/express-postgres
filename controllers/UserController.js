@@ -9,5 +9,18 @@ const getAllUsers = async (req,res) => {
         data : User
     });
 }
-
-module.exports = {getAllUsers}
+const addUser = async (req, res) => {
+    const User = await models.User.create({
+        firstName : req.body.firstName,
+        lastName : req.body.lastName,
+        email : req.body.email,
+        createdAt : new Date().toISOString(), 
+        updatedAt : new Date().toISOString()
+    })
+    res.status(200).send({
+        status : 200,
+        message : "Berhasil tambah data user",
+        data : User
+    });
+}
+module.exports = {getAllUsers, addUser}
