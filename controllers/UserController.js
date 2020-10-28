@@ -23,4 +23,13 @@ const addUser = async (req, res) => {
         data : User
     });
 }
-module.exports = {getAllUsers, addUser}
+const showUser = async (req, res) => {
+    const user_id = req.params.user_id
+    const User = await models.User.findByPk(user_id)
+    res.status(200).send({
+        status : 200,
+        message : `Get user with id ${user_id}`,
+        data : User
+    });
+}
+module.exports = {getAllUsers, addUser, showUser}
