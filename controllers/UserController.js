@@ -32,4 +32,23 @@ const showUser = async (req, res) => {
         data : User
     });
 }
-module.exports = {getAllUsers, addUser, showUser}
+const updateUser = async (req, res) => {
+    const user_id = req.params.user_id
+    const User = await models.User.update({
+        firstName : req.body.firstName,
+        lastName : req.body.lastName,
+        email : req.body.email,
+        updatedAt : new Date().toISOString()
+    }, {
+        where : {
+            id : user_id
+        },
+        returning : true
+    })
+    res.status(200).send({
+        status : 200,
+        message : `updating data with id ${user_id}`,
+        data: User[1]
+    })
+}
+module.exports = {getAllUsers, addUser, showUser, updateUser}
