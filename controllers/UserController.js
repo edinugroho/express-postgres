@@ -51,4 +51,16 @@ const updateUser = async (req, res) => {
         data: User[1]
     })
 }
-module.exports = {getAllUsers, addUser, showUser, updateUser}
+const destroy = async (req, res) => {
+    const user_id = req.params.user_id
+    await models.User.destroy({
+        where : {
+            id : user_id
+        }
+    })
+    res.status(200).send({
+        status : 200,
+        message : `User dengan id ${user_id} berhasil dihapus`
+    });
+}
+module.exports = {getAllUsers, addUser, showUser, updateUser, destroy}
